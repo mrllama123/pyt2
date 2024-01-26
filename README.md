@@ -3,7 +3,7 @@
 
 this is a fork of https://github.com/ThatXliner/pyt2 with my own tweaks and changes to it
 
-![GitHub tag (latest SemVer release)](https://img.shields.io/github/v/tag/ThatXliner/pyt2?logo=Github&label=version)
+![GitHub tag (latest SemVer release)](https://img.shields.io/github/v/tag/mrllama123/pyt2?logo=Github&label=version)
 
 My [second attempt](https://github.com/ThatXliner/Pytemplate) at making a Python template.
 
