@@ -1,6 +1,7 @@
-> **Note**: If you're looking for the old CookieCutter template, see [this branch](https://github.com/ThatXliner/pyt2/tree/cookiecutter)
 
 # Pyt2
+
+this is a fork of https://github.com/ThatXliner/pyt2 with my own tweaks and changes to it
 
 ![GitHub tag (latest SemVer release)](https://img.shields.io/github/v/tag/ThatXliner/pyt2?logo=Github&label=version)
 
@@ -18,7 +19,7 @@ I've seen [many other projects like this](https://github.com/search?q=python+coo
 - :art: Linters (checked via GitHub Actions :octocat:)
   - :black_circle: [Black](https://github.com/psf/black)
   - :snake: [MyPy](https://github.com/python/mypy)
-  - :zap: [Ruff](https://beta.ruff.rs/docs/) (which includes [`isort`](https://pycqa.github.io/isort/) and [Pylint](https://pylint.readthedocs.io/en/latest/) and [many, many others...](https://beta.ruff.rs/docs/rules/))
+  - :zap: [pylint](https://pylint.readthedocs.io/en/latest/)
   - :warning: Uses [`.pre-commit-config.yaml`](https://pre-commit.com/)
   - :mouse: Uses [`.editorconfig`](https://editorconfig.org/)
 - &#x1F9EA; [Hypothesis](https://hypothesis.works), [codecov](https://about.codecov.io/), and [Pytest](https://pytest.org) for testing
@@ -44,13 +45,13 @@ pipx install copier
 Now you can run this command to create a new folder in the current directory that contains the scaffolded project:
 
 ```bash
-copier copy gh:ThatXliner/pyt2 .
+copier copy gh:mrllama123/pyt2 .
 ```
 
 Or for the bleeding-edge version on the `master` branch:
 
 ```bash
-copier copy gh:ThatXliner/pyt2 . --vcs-ref master
+copier copy gh:mrllama123/pyt2 . --vcs-ref master
 ```
 
 ## Updating a project
