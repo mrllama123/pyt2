@@ -16,10 +16,10 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: python3 -m pip install --upgrade pip copier poetry poetry-plugin-up
-    - name: Configure Git
-      run: |
-        git config user.name "Bot"
-        git config user.email "piesrule123@gmail.com"
+      - name: Configure Git
+        run: |
+          git config --global user.name "Bot"
+          git config --global user.email "piesrule123@gmail.com"
       - name: Update template
         run: make all
       - name: Check if we should commit
