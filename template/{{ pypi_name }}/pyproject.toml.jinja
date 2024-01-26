@@ -35,7 +35,7 @@ mypy = "^1.0.1"
 pytest = "^7.2.1"
 pytest-clarity = "^1.0.1"
 pytest-cov = "^4.0.0"
-ruff = "^0.0.249"
+pylint = "^3.0.3"
 shed = "^0.10.9"
 {% if add_docs %}
 Sphinx = "^6.1.3"{% endif %}
@@ -43,35 +43,24 @@ toml = "^0.10.2"
 
 [tool.poe.tasks]
 # Code linting
-mypy   = {cmd = "mypy {{ module_name }} --strict", help = "Run MyPy on codebase"}
-ruff = {cmd = "ruff check {{ module_name }}", help = "Run Ruff on codebase"}
-check_black = {cmd = "black {{ module_name }} --check"}
-check_imports = {cmd = "ruff check {{ module_name }} --select I"}
-style    = ["check_black", "check_imports"]
-codebase = ["ruff", "mypy"]{% if add_docs %}
+mypy = { cmd = "mypy src --strict", help = "Run MyPy on codebase" }
+pylint = { cmd = "pylint src", help = "Run pylint on codebase" }
+check_black = { cmd = "black src --check" }
+check_imports = { cmd = "isort --check-only --profile=black src" }
+lint = ["check_black", "check_imports", "pylint"]
+
+[tool.poe.tasks.format]
+shell = "shed"
+help = "Format code"
+
+[tool.poe.tasks.test]
+cmd = "pytest -vvv --cov=src"
+help = "Simply run test suite"
+
+{% if add_docs %}
     [tool.poe.tasks.docs]
     cmd = "sphinx-build docs build"
     help = "Build documentation"{% endif %}
-
-    [tool.poe.tasks.format]
-    cmd = "shed"
-    help = "Format code"
-
-    [tool.poe.tasks.fix-ruff]
-    cmd = "ruff {{ module_name }} --fix"
-    help = "Ruff autofix"
-
-    [tool.poe.tasks.lint]
-    sequence = ["style", "codebase"]
-    help = "Lint codebase"
-
-    [tool.poe.tasks.test]
-    cmd = "pytest -vvv --cov={{ module_name }}"
-    help = "Simply run test suite"
-
-    [tool.poe.tasks.ci]
-    cmd = "pytest -vvv --cov={{ module_name }} --cov-report=xml"
-    help = "This workflow is for Github Actions"
 
 
 [build-system]
