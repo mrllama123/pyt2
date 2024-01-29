@@ -43,10 +43,10 @@ toml = "^0.10.2"
 
 [tool.poe.tasks]
 # Code linting
-mypy = { cmd = "mypy src --strict", help = "Run MyPy on codebase" }
-pylint = { cmd = "pylint src", help = "Run pylint on codebase" }
-check_black = { cmd = "black src --check" }
-check_imports = { cmd = "isort --check-only --profile=black src" }
+mypy = { cmd = "mypy {{module_name}} --strict", help = "Run MyPy on codebase" }
+pylint = { cmd = "pylint {{module_name}}", help = "Run pylint on codebase" }
+check_black = { cmd = "black {{module_name}} --check" }
+check_imports = { cmd = "isort --check-only --profile=black {{module_name}}" }
 lint = ["check_black", "check_imports", "pylint"]
 
 [tool.poe.tasks.format]
@@ -54,7 +54,7 @@ shell = "shed"
 help = "Format code"
 
 [tool.poe.tasks.test]
-cmd = "pytest -vvv --cov=src"
+cmd = "pytest -vvv --cov={{module_name}}"
 help = "Simply run test suite"
 
 {% if add_docs %}

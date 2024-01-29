@@ -1,24 +1,31 @@
 name: CI
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+  pull_request:
 jobs:
   build:
+    strategy:
+      matrix:
+        python-version:
+          - "3.10"
+          - "3.11"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Set up Python 3.9
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: python3 -m pip install --upgrade pip copier poetry poethepoet
       - name: Create default options
         run: make setup-env
 
       - name: Build example template
-        run: copier copy gh:ThatXliner/pyt2 . -a .copier-answers.yml --defaults --vcs-ref HEAD
+        run: copier copy gh:mrllama123/pyt2 . -a .copier-answers.yml --defaults --vcs-ref ${{ github.sha }}
       - name: Build example
         working-directory: cool-example
         run: |
@@ -28,6 +35,6 @@ jobs:
         working-directory: cool-example
         run: |
           poe docs
-          poe style
-          poe codebase
+          poe lint
+          poe format
           poe test
