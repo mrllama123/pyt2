@@ -47,6 +47,10 @@ email:
   type: "str"
   help: "Your email"
   placeholder: "hello@example.com"
+license:
+  type: bool
+  help: "Do you want to add a license?"
+  default: true
 # init_venv:
 #   type: "bool"
 #   help: "Should we run `poetry install` for you?"
