@@ -19,7 +19,18 @@ nodocs: clean
 	$(MAKE) run
 	cp cool-example/poetry.lock 'template/{{ pypi_name }}/{% if not add_docs %}poetry.lock{% endif %}'
 	$(MAKE) clean
-
+useruffnodocs: clean
+	$(MAKE) setup-env
+	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d use_ruff=true --vcs-ref HEAD
+	$(MAKE) run
+	cp cool-example/poetry.lock 'template/{{ pypi_name }}/{% if use_ruff and not add_docs %}poetry.lock{% endif %}'
+	$(MAKE) clean
+useruffdocs: clean
+	$(MAKE) setup-env
+	copier copy . . -a .copier-answers.yml --defaults -d add_docs=true -d use_ruff=true --vcs-ref HEAD
+	$(MAKE) run
+	cp cool-example/poetry.lock 'template/{{ pypi_name }}/{% if use_ruff and add_docs %}poetry.lock{% endif %}'
+	$(MAKE) clean
 nopackage: clean
 	$(MAKE) setup-env
 	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d is_py_package=false --vcs-ref HEAD
