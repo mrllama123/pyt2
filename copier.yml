@@ -32,7 +32,7 @@ add_docs:
 use_ruff:
   type: "bool"
   help: "Do you want to use Ruff for linting?"
-  default: true
+  default: false
 is_app:
   type: "bool"
   help: "Is your project an app that you should run?"
