@@ -29,6 +29,10 @@ add_docs:
   type: "bool"
   help: "Do you want to add docs to your project?"
   default: true
+use_ruff:
+  type: "bool"
+  help: "Do you want to use Ruff for linting?"
+  default: true
 is_app:
   type: "bool"
   help: "Is your project an app that you should run?"
