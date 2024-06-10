@@ -1,6 +1,8 @@
 all:
 	$(MAKE) docs
 	$(MAKE) nodocs
+	$(MAKE) useruffnodocs
+	$(MAKE) useruffdocs
 clean:
 	rm -rf cool-example .copier-answers.yml
 setup-env:
