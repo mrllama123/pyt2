@@ -31,7 +31,6 @@ I've seen [many other projects like this](https://github.com/search?q=python+coo
   - (Optional) :smile_cat: Documentation via [Sphinx](https://www.sphinx-doc.org/en/master/)
 - :printer: Template usage features
   - :recycle: Pyt2 uses [Copier](https://copier.readthedocs.io/en/stable/), therefore Pyt2 has [template syncing features](https://copier.readthedocs.io/en/stable/updating/)
-  - :lock: Pre-computed lockfile (`poetry.lock`) with up-to-date dependencies via CI ([![Autoupdate](https://github.com/ThatXliner/pyt2/actions/workflows/autoupdate.yml/badge.svg)](https://github.com/ThatXliner/pyt2/actions/workflows/autoupdate.yml))
   - :bookmark: Has a `test_version.py` which will test if the `__version__` metadata variable in the package is equal to the one in the `pyproject.toml`
   - (Optional) :clapper: `__main__.py` and `[tool.poetry.scripts]` entry point generation (for applications)
 
