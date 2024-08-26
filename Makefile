@@ -16,9 +16,17 @@ docs: clean
 	$(MAKE) clean
 nodocs: clean
 	$(MAKE) setup-env
-	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false --vcs-ref HEAD -w
+	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false  --vcs-ref HEAD -w
+
+mitlicense: clean
+	$(MAKE) setup-env
+	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d license=mit  --vcs-ref HEAD -w
 	$(MAKE) run
 	$(MAKE) clean
+gnulicense: clean
+	$(MAKE) setup-env
+	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d license=gnu  --vcs-ref HEAD -w
+
 useruffnodocs: clean
 	$(MAKE) setup-env
 	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d use_ruff=true --vcs-ref HEAD 
