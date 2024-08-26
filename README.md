@@ -19,8 +19,7 @@ I've seen [many other projects like this](https://github.com/search?q=python+coo
 - :art: Linters (checked via GitHub Actions :octocat:)
   - :black_circle: [Black](https://github.com/psf/black)
   - :snake: [MyPy](https://github.com/python/mypy)
-  - :zap: [pylint](https://pylint.readthedocs.io/en/latest/)
-  - :zap: [ruff (optional flag)](https://beta.ruff.rs/docs/)
+  - :zap: [ruff](https://beta.ruff.rs/docs/)
   - :warning: Uses [`.pre-commit-config.yaml`](https://pre-commit.com/)
   - :mouse: Uses [`.editorconfig`](https://editorconfig.org/)
 - &#x1F9EA; [Hypothesis](https://hypothesis.works), [codecov](https://about.codecov.io/), and [Pytest](https://pytest.org) for testing
