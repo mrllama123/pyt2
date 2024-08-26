@@ -52,9 +52,13 @@ email:
   help: "Your email"
   placeholder: "hello@example.com"
 license:
-  type: bool
-  help: "Do you want to add a license?"
-  default: true
+  type: str
+  help: "The license of your repo"
+  default: none
+  choices:
+    - mit
+    - gnu
+    - none
 # init_venv:
 #   type: "bool"
 #   help: "Should we run `poetry install` for you?"
