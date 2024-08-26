@@ -43,13 +43,31 @@ Sphinx = "^6.1.3"{% endif %}
 toml = "^0.10.2"
 
 [tool.poe.tasks]
-# Code linting
-mypy = { cmd = "mypy {{module_name}} --strict", help = "Run MyPy on codebase" }
-{% if not use_ruff %}pylint = { cmd = "pylint {{module_name}}", help = "Run pylint on codebase" }{%else%}ruff={ cmd= "ruff check {{module_name}}", help="Run ruff on codebase" }{% endif %}
 
-check_black = { cmd = "black {{module_name}} --check" }
-check_imports = { cmd = "isort --check-only --profile=black {{module_name}}" }
-lint = ["check_black", "check_imports",{% if use_ruff %}"ruff"{% else %}"pylint"{% endif %}]
+
+###
+# Lint/Formatting tasks
+###
+
+[tool.poe.tasks.check_black]
+cmd = "black --check {{module_name}}"
+
+[tool.poe.tasks.check_imports]
+cmd = "isort --check-only --profile=black {{module_name}}"
+
+{% if use_ruff %}[tool.poe.tasks.ruff-fix]
+cmd = "ruff check {{module_name}} --fix"
+help = "Ruff autofix"
+
+[tool.poe.tasks.ruff]
+cmd = "ruff check {{module_name}}"
+help = "Run Ruff on codebase"{% else %}[tool.poe.tasks.pylint]
+cmd = "pylint {{module_name}}"
+help = "Run pylint on codebase"{% endif %}
+
+
+[tool.poe.tasks.lint]
+sequence = ["check_black", "check_imports", {% if use_ruff %}"ruff"{% else %}"pylint"{% endif %}]
 
 [tool.poe.tasks.format]
 shell = "shed"
