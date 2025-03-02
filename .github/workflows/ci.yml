@@ -36,5 +36,4 @@ jobs:
         run: |
           poe docs
           poe lint
-          poe format
           poe test
