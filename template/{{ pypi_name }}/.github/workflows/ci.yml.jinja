@@ -6,14 +6,12 @@ on:
   push:
   pull_request:
 env:
-  POETRY_VERSION: 1.7.1
+  POETRY_VERSION: 1.8.5
 jobs:
   test:
     strategy:
       matrix:
         python-version:
-          - 3.8
-          - 3.9
           - "3.10"
           - "3.11"
           - "3.12"
@@ -48,9 +46,7 @@ jobs:
           poetry install
           poetry install  # Second time to install the project
       - name: Run test suite
-        run: poe ci
-      - name: Upload to CodeCov
-        uses: codecov/codecov-action@v2{% endraw %}{% if add_docs %}{% raw %}
+        run: poe test{% endraw %}{% if add_docs %}{% raw %}
   docs:
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +71,7 @@ jobs:
 
       - name: Build docs
         run: poe docs{% endraw %}{% endif %}{% raw %}
-  build:
+{% endraw %}{% if is_py_package %}{% raw %}  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -86,7 +82,7 @@ jobs:
       - name: Install Poetry $POETRY_VERSION
         run: python3 -m pip install --upgrade pip poetry==$POETRY_VERSION
       - name: Build project
-        run: poetry build
+        run: poetry build{% endraw %}{% endif %}{% raw %}
   lints:
     runs-on: ubuntu-latest
     steps:
@@ -111,9 +107,6 @@ jobs:
           poetry install  # Second time to install the project
 
       - name: Run style lints
-        run: poe style
-      - name: Run ruff lints
-        run: poe codebase
-      - name: Run mypy lints
-        run: poe mypy
+        run: poe lint
+
 {% endraw %}
