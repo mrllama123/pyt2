@@ -41,15 +41,18 @@ author:
   type: "str"
   help: "The author name as it shows on PyPi"
   placeholder: "John Doe"
+  default: "Bob"
   validator: "{% if author|length == 0 %}Author name may not be empty{% endif %}"
 username:
   type: "str"
   help: "Your username as it is on GitHub"
   placeholder: "Octocat"
+  default: "mrllama123"
   validator: "{% if username|length == 0 %}Username may not be empty{% endif %}"
 email:
   type: "str"
   help: "Your email"
+  default: "piesrule123@gmail.com"
   placeholder: "hello@example.com"
 license:
   type: str
