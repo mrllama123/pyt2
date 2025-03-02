@@ -59,8 +59,12 @@ cmd = "ruff check {{module_name}} --fix"
 help = "Ruff autofix"
 
 [tool.poe.tasks.format-fix]
-shell = "ruff format src"
+shell = "ruff format {{module_name}}"
 help = "Format code"
+
+[tool.poe.tasks.format-check]
+shell = "ruff format {{module_name}} --check"
+help = "Format code check"
 
 [tool.poe.tasks.ruff]
 cmd = "ruff check {{module_name}}"
