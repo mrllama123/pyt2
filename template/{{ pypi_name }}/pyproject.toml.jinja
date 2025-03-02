@@ -37,7 +37,6 @@ pytest-clarity = "^1.0.1"
 pytest-cov = "^4.0.0"
 {% if use_ruff %}ruff="^0.4.4"
 {% else %}pylint = "^3.0.3"{% endif %}
-shed = "^0.10.9"
 {% if add_docs %}
 Sphinx = "^6.1.3"{% endif %}
 toml = "^0.10.2"
@@ -49,15 +48,23 @@ toml = "^0.10.2"
 # Lint/Formatting tasks
 ###
 
-[tool.poe.tasks.check_black]
+{% if not use_ruff %}[tool.poe.tasks.check_black]
 cmd = "black --check {{module_name}}"
 
 [tool.poe.tasks.check_imports]
-cmd = "isort --check-only --profile=black {{module_name}}"
+cmd = "isort --check-only --profile=black {{module_name}}" {% endif %}
 
 {% if use_ruff %}[tool.poe.tasks.ruff-fix]
 cmd = "ruff check {{module_name}} --fix"
 help = "Ruff autofix"
+
+[tool.poe.tasks.format-fix]
+shell = "ruff format {{module_name}}"
+help = "Format code"
+
+[tool.poe.tasks.format-check]
+shell = "ruff format {{module_name}} --check"
+help = "Format code check"
 
 [tool.poe.tasks.ruff]
 cmd = "ruff check {{module_name}}"
@@ -67,11 +74,10 @@ help = "Run pylint on codebase"{% endif %}
 
 
 [tool.poe.tasks.lint]
-sequence = ["check_black", "check_imports", {% if use_ruff %}"ruff"{% else %}"pylint"{% endif %}]
+{% if use_ruff %}sequence = ["format-check", "ruff"]{% else %}sequence = ["check_black", "check_imports", "pylint"]{% endif %}
 
-[tool.poe.tasks.format]
-shell = "shed"
-help = "Format code"
+{% if use_ruff %}[tool.poe.tasks.lint-fix]
+sequence = ["format-fix", "ruff-fix"]{% endif %}
 
 [tool.poe.tasks.test]
 cmd = "pytest -vvv --cov={{module_name}}"
@@ -145,7 +151,9 @@ ignore = [
     "PLR0913", # too many arguments
     "EM101", # Checks for the use of string literals in exception constructors
     "TRY003", # Avoid specifying long messages outside the exception class
-    "N815"# Variable in class scope should not be mixedCase 
+    "N815",# Variable in class scope should not be mixedCase 
+    "COM812", 
+    "ISC001" 
 
 ]
 [tool.ruff.lint.flake8-bugbear]
