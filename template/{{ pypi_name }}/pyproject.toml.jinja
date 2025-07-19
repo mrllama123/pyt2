@@ -27,8 +27,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     {% if use_ruff %}"ruff",{% else %}"pylint", "black", "isort",{% endif %}
-    {% if add_docs %}"Sphinx",{% endif %}
-    "toml",
+    {% if add_docs %}"Sphinx","toml",{% endif %}
     "hypothesis",
     "pytest",
     "pytest-clarity",
