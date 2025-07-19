@@ -20,9 +20,9 @@ classifiers = [
 documentation = "https://{{ module_name.replace('_', '') }}.readthedocs.io/en/latest/index.html"{% endif %}
 homepage = "https://github.com/{{ username }}/{{ pypi_name }}"
 # keywords = ["awesome", "project"]  # Maximum of 5 keywords
+requires-python = ">=3.11,<4.0"
 
 {% if use_uv %}
-requires-python = ">=3.11,<4.0"
 dependencies = []
 [dependency-groups]
 dev = [
@@ -40,10 +40,12 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 {% else %}
-version = "^3.11,<4.0"
 {% if is_app %}[tool.poetry.scripts]
 {{ module_name }} = "{{ module_name }}.__main__:main"
 {% endif %}
+
+[tool.poetry.dependencies]
+python = "^3.11,<4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
