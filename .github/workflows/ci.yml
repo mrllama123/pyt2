@@ -52,8 +52,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
       - name: Install dependencies
-        run: | 
-          uv tool install poethepoet
+        run: |
           uv tool install copier    
       - name: Create default options
         run: make setup-env
@@ -62,5 +61,5 @@ jobs:
       - name: Run example tasks
         working-directory: cool-example
         run: |
-          poe lint
-          poe test
+          uv run poe lint
+          uv run poe test
