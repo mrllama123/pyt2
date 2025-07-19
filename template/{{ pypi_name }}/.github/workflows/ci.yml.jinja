@@ -5,8 +5,8 @@ on:
   # This way, we can make sure code doesn't break via external dependencies
   push:
   pull_request:
-env:
-  POETRY_VERSION: 1.8.5
+{% endraw %}{%if not use_uv%}{%raw%}env:
+  POETRY_VERSION: 1.8.5{% endraw %}{% endif %}{%raw%}
 jobs:
   test:
     strategy:
