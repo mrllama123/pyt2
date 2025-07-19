@@ -20,9 +20,9 @@ classifiers = [
 documentation = "https://{{ module_name.replace('_', '') }}.readthedocs.io/en/latest/index.html"{% endif %}
 homepage = "https://github.com/{{ username }}/{{ pypi_name }}"
 # keywords = ["awesome", "project"]  # Maximum of 5 keywords
-requires-python = ">=3.11,<4.0"
 
 {% if use_uv %}
+requires-python = ">=3.11,<4.0"
 dependencies = []
 [dependency-groups]
 dev = [
