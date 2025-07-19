@@ -55,7 +55,7 @@ jobs:
         run: make setup-env
 
       - name: Build example template
-        run: copier copy gh:mrllama123/pyt2 . -a .copier-answers.yml --defaults --vcs-ref ${{ github.sha }}
+        run: uvx copier copy gh:mrllama123/pyt2 . -a .copier-answers.yml --defaults --vcs-ref ${{ github.sha }}
       - name: Run example tasks
         working-directory: cool-example
         run: |
