@@ -1,12 +1,12 @@
-[tool.poetry]
+{% if use_uv %}[project]{% else %}[tool.poetry]{% endif %}
 name = "{{ pypi_name }}"
 description = "{{ project_description }}"
-authors = ["{{ author }}{% if email|length != 0 %} <{{ email }}>{% endif %}"]
+{% if use_uv %}authors = [{ name="{{ author }}"{% if email|length != 0 %},  email="{{ email }}"{% endif %}}]{% else %}authors = ["{{ author }}{% if email|length != 0 %} <{{ email }}>{% endif %}"]{% endif %}
 version = "0.1.0"
-packages = [{ include = "{{ module_name }}" }]
+{% if not use_uv %}packages = [{ include = "{{ module_name }}" }]{% endif %}
 
-readme = "README.md"
-license = "GPL-3.0-or-later"
+readme = "README.md" 
+{% if license == 'gnu' %}license = "GPL-3.0-or-later",{% elif license == 'mit'  %}license = "MIT"{% endif %}
 
 classifiers = [
     # Get the list of trove classifiers here: https://pypi.org/classifiers/
@@ -21,12 +21,31 @@ documentation = "https://{{ module_name.replace('_', '') }}.readthedocs.io/en/la
 homepage = "https://github.com/{{ username }}/{{ pypi_name }}"
 # keywords = ["awesome", "project"]  # Maximum of 5 keywords
 
-[tool.poetry.dependencies]
-python = "^3.8"{% if is_app %}
+{% if use_uv %}
+requires-python = ">=3.11,<4.0"
+dependencies = []
+[dependency-groups]
+dev = [
+    {% if use_ruff %}"ruff",{% else %}"pylint", "black", "isort",{% endif %}
+    {% if add_docs %}"Sphinx","toml",{% endif %}
+    "hypothesis",
+    "pytest",
+    "pytest-clarity",
+    "pytest-cov",
+    "mypy",
+    "poethepoet"
+]
 
-[tool.poetry.scripts]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+{% else %}
+{% if is_app %}[tool.poetry.scripts]
 {{ module_name }} = "{{ module_name }}.__main__:main"
 {% endif %}
+
+[tool.poetry.dependencies]
+python = "^3.11,<4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
@@ -40,6 +59,11 @@ pytest-cov = "^4.0.0"
 {% if add_docs %}
 Sphinx = "^6.1.3"{% endif %}
 toml = "^0.10.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+{% endif %}
 
 [tool.poe.tasks]
 
@@ -88,10 +112,6 @@ help = "Simply run test suite"
     cmd = "sphinx-build docs build"
     help = "Build documentation"{% endif %}
 
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
 
 {% if not use_ruff %}[tool.pylint.messages_control]
 disable = [

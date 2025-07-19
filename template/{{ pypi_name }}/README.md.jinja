@@ -17,6 +17,19 @@
 
 ## Installation
 
+{% if use_uv %}
+You can install this project using [uv](https://github.com/astral-sh/uv):
+
+```bash
+$ uv pip install {{ pypi_name }}
+```
+
+Or, for development:
+
+```bash
+$ uv pip install -e .
+```
+{% else %}
 You can get this project via `pip`
 
 ```bash
@@ -37,6 +50,7 @@ Or, if you're using [Poetry](https://python-poetry.org)
 $ poetry add {{ pypi_name }}
 ```
 
+{% endif %}
 {% endif %}
 
 ## License

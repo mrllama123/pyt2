@@ -14,12 +14,12 @@ I've seen [many other projects like this](https://github.com/search?q=python+coo
 ## :sparkles: Features
 
 - :open_file_folder: Package management
-  - :musical_note: Uses [Poetry](https://python-poetry.org) to manage the project
+  - :musical_note: Uses [Poetry](https://python-poetry.org) or [uv](https://docs.astral.sh/uv/) (default) to manage the project
   - :notes: Has [Poe](https://github.com/nat-n/poethepoet) tasks
 - :art: Linters (checked via GitHub Actions :octocat:)
   - :black_circle: [Black](https://github.com/psf/black)
   - :snake: [MyPy](https://github.com/python/mypy)
-  - :zap: [ruff](https://beta.ruff.rs/docs/)
+  - :zap: [ruff](https://beta.ruff.rs/docs/) (default)
   - :warning: Uses [`.pre-commit-config.yaml`](https://pre-commit.com/)
   - :mouse: Uses [`.editorconfig`](https://editorconfig.org/)
 - &#x1F9EA; [Hypothesis](https://hypothesis.works), [codecov](https://about.codecov.io/), and [Pytest](https://pytest.org) for testing
