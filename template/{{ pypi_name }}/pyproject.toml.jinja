@@ -40,8 +40,6 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 {% else %}
-tool.poetry.version = "^3.8"{% if is_app %}
-
 [tool.poetry.scripts]
 {{ module_name }} = "{{ module_name }}.__main__:main"
 {% endif %}
