@@ -50,14 +50,15 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          enable-cache: true      
+          enable-cache: true
+      - name: Install dependencies
+        run: uv tool install poethepoet copier    
       - name: Create default options
         run: make setup-env
-
       - name: Build example template
-        run: uvx copier copy gh:mrllama123/pyt2 . -a .copier-answers.yml --defaults --vcs-ref ${{ github.sha }}
+        run: copier copy gh:mrllama123/pyt2 . -a .copier-answers.yml --defaults --vcs-ref ${{ github.sha }}
       - name: Run example tasks
         working-directory: cool-example
         run: |
-          uvx poe lint
-          uvx poe test
+          poe lint
+          poe test
