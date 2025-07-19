@@ -28,7 +28,7 @@ project_description:
 add_docs:
   type: "bool"
   help: "Do you want to add docs to your project?"
-  default: true
+  default: false
 use_ruff:
   type: "bool"
   help: "Do you want to use Ruff for linting?"
@@ -62,6 +62,11 @@ license:
     - mit
     - gnu
     - none
+# Use uv for dependency management and installation
+use_uv:
+  type: "bool"
+  help: "Do you want to use uv (https://github.com/astral-sh/uv) for dependency management and installation?"
+  default: true
 # init_venv:
 #   type: "bool"
 #   help: "Should we run `poetry install` for you?"
