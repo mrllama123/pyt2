@@ -1,7 +1,7 @@
 {% if use_uv %}[project]{% else %}[tool.poetry]{% endif %}
 name = "{{ pypi_name }}"
 description = "{{ project_description }}"
-authors = [{ name="{{ author }}"{% if email|length != 0 %},  email="{{ email }}"{% endif %}}]
+{% if use_uv %}authors = [{ name="{{ author }}"{% if email|length != 0 %},  email="{{ email }}"{% endif %}}]{% else %}authors = 
 version = "0.1.0"
 {% if not use_uv %}packages = [{ include = "{{ module_name }}" }]{% endif %}
 
