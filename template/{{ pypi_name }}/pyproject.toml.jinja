@@ -16,11 +16,8 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Natural Language :: English",
     {% if license == 'gnu' %}"License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",{% elif license == 'mit'  %}"License :: OSI Approved :: MIT License",{% endif %}
-]{% if add_docs %}
-documentation = "https://{{ module_name.replace('_', '') }}.readthedocs.io/en/latest/index.html"{% endif %}
-homepage = "https://github.com/{{ username }}/{{ pypi_name }}"
 # keywords = ["awesome", "project"]  # Maximum of 5 keywords
-
+]
 {% if use_uv %}
 requires-python = ">=3.11,<4.0"
 dependencies = []
@@ -105,11 +102,6 @@ sequence = ["format-fix", "ruff-fix"]{% endif %}
 [tool.poe.tasks.test]
 cmd = "pytest -vvv --cov={{module_name}}"
 help = "Simply run test suite"
-
-{% if add_docs %}
-    [tool.poe.tasks.docs]
-    cmd = "sphinx-build docs build"
-    help = "Build documentation"{% endif %}
 
 
 {% if not use_ruff %}[tool.pylint.messages_control]

@@ -47,32 +47,7 @@ jobs:
           poetry install
           poetry install  # Second time to install the project
       - name: Run test suite
-        run: poe test{% endraw %}{% endif %}{% if add_docs %}{% raw %}
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3
-      - uses: actions/cache@v3
-        with:
-          path: .venv
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: |
-          python3 -m pip install --upgrade pip poetry==$POETRY_VERSION poethepoet
-          poetry config virtualenvs.in-project true
-          poetry install
-          poetry install  # Second time to install the project
-
-      - name: Build docs
-        run: poe docs{% endraw %}{% endif %}{% raw %}
-{% endraw %}{% if is_py_package and use_uv %}{% raw %}  build:
+        run: poe test{% endraw %}{% endif %}{% if is_py_package and use_uv %}{% raw %}  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
