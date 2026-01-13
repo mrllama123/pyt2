@@ -25,10 +25,6 @@ project_description:
   type: "str"
   help: "The description of the project as it appears on PyPi"
   placeholder: "An awesome project"
-add_docs:
-  type: "bool"
-  help: "Do you want to add docs to your project?"
-  default: false
 use_ruff:
   type: "bool"
   help: "Do you want to use Ruff for linting?"

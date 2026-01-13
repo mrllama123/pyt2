@@ -11,7 +11,6 @@ There are many ways you can contribute :smile:
    - :sparkles: Request a feature
    - :bug: Report a bug
 
-Remember to follow the [code of conduct](./CODE_OF_CONDUCT.md)
 
 We use [Poetry](https://python-poetry.org) to manage the project so [make sure you have it](https://python-poetry.org/docs/#installation). Once you do, set up the virtual environment after you cloned repo
 
