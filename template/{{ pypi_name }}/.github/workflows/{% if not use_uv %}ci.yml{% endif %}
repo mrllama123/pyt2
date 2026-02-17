@@ -1,0 +1,62 @@
+name: CI
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Run every month
+  pull_request:
+env:
+  POETRY_VERSION: 1.8.5
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version:
+          - "3.12"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v3
+        with:
+          path: |
+            .venv
+            .pytest_cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Poetry and Poe (UNIX)
+        run: python3 -m pip install poetry==$POETRY_VERSION poethepoet
+      - name: Run test suite
+        run: poe test
+
+  lints:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - "3.12"  
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v3
+        with:
+          path: |
+            .venv
+            .pytest_cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Poetry and Poe (UNIX)
+        run: python3 -m pip install poetry==$POETRY_VERSION poethepoet
+      - name: Run style lints
+        run: poe lint
+

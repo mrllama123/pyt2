@@ -3,7 +3,8 @@ name = "{{ pypi_name }}"
 description = "{{ project_description }}"
 {% if use_uv %}authors = [{ name="{{ author }}"{% if email|length != 0 %},  email="{{ email }}"{% endif %}}]{% else %}authors = ["{{ author }}{% if email|length != 0 %} <{{ email }}>{% endif %}"]{% endif %}
 version = "0.1.0"
-{% if not use_uv %}packages = [{ include = "{{ module_name }}" }]{% endif %}
+{% if not use_uv and is_py_package %}packages = [{ include = "{{ module_name }}" }]{% endif %}
+
 
 readme = "README.md" 
 {% if license == 'gnu' %}license = "GPL-3.0-or-later",{% elif license == 'mit'  %}license = "MIT"{% endif %}
@@ -32,9 +33,9 @@ dev = [
     "poethepoet"
 ]
 
-[build-system]
+{% if is_py_package %}[build-system]
 requires = ["hatchling"]
-build-backend = "hatchling.build"
+build-backend = "hatchling.build"{% endif %}
 {% else %}
 {% if is_app %}[tool.poetry.scripts]
 {{ module_name }} = "{{ module_name }}.__main__:main"
@@ -75,19 +76,19 @@ cmd = "black --check {{module_name}}"
 cmd = "isort --check-only --profile=black {{module_name}}" {% endif %}
 
 {% if use_ruff %}[tool.poe.tasks.ruff-fix]
-cmd = "ruff check {{module_name}} --fix"
+cmd = {% if use_uv %}"ruff check src --fix"{% else %}"ruff check {{module_name}} --fix"{% endif %}
 help = "Ruff autofix"
 
 [tool.poe.tasks.format-fix]
-shell = "ruff format {{module_name}}"
+shell = {% if use_uv %}"ruff format src"{% else %}"ruff format {{module_name}} --check"{% endif %}
 help = "Format code"
 
 [tool.poe.tasks.format-check]
-shell = "ruff format {{module_name}} --check"
+shell = {% if use_uv %}"ruff format src --check"{% else %}"ruff format {{module_name}} --check"{% endif %}
 help = "Format code check"
 
 [tool.poe.tasks.ruff]
-cmd = "ruff check {{module_name}}"
+cmd = {% if use_uv %}"ruff check src"{% else %}"ruff check {{module_name}}"{% endif %}
 help = "Run Ruff on codebase"{% else %}[tool.poe.tasks.pylint]
 cmd = "pylint {{module_name}}"
 help = "Run pylint on codebase"{% endif %}
