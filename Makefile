@@ -32,6 +32,12 @@ uv: clean
 	$(MAKE) setup-env
 	copier copy . . -a .copier-answers.yml --defaults -d use_uv=true  --vcs-ref HEAD -w
 	$(MAKE) runuv
+	$(MAKE) clean
+uvnopackage: clean
+	$(MAKE) setup-env
+	copier copy . . -a .copier-answers.yml --defaults -d use_uv=true -d is_py_package=false --vcs-ref HEAD -w
+	$(MAKE) runuv
+	$(MAKE) clean
 useruffnodocs: clean
 	$(MAKE) setup-env
 	copier copy . . -a .copier-answers.yml --defaults -d add_docs=false -d use_ruff=true -d use_uv=false --vcs-ref HEAD 
