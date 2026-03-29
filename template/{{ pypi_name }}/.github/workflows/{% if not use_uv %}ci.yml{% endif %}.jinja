@@ -19,9 +19,9 @@ jobs:
           path: |
             .venv
             .pytest_cache
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+          key: {{% raw %}}${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}{{% endraw %}}  
           restore-keys: |
-            ${{ runner.os }}-pip-
+            {{% raw %}}${{ runner.os }}-pip-{{% endraw %}}
 
       - name: Install Poetry and Poe (UNIX)
         run: python3 -m pip install poetry==$POETRY_VERSION poethepoet
@@ -42,9 +42,9 @@ jobs:
           path: |
             .venv
             .pytest_cache
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+          key: {{% raw %}}${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}{{% endraw %}}  
           restore-keys: |
-            ${{ runner.os }}-pip-
+            {{% raw %}}${{ runner.os }}-pip-{{% endraw %}}
 
       - name: Install Poetry and Poe (UNIX)
         run: python3 -m pip install poetry==$POETRY_VERSION poethepoet
