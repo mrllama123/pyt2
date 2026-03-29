@@ -39,6 +39,14 @@ author:
   placeholder: "John Doe"
   default: "Bob"
   validator: "{% if author|length == 0 %}Author name may not be empty{% endif %}"
+use_shields:
+  type: "bool"
+  help: "use img.shields in readme"
+  default: false
+ci_python_version:
+  type: "str"
+  help: "The python version to use in ci"
+  default: "3.12"
 username:
   type: "str"
   help: "Your username as it is on GitHub"
