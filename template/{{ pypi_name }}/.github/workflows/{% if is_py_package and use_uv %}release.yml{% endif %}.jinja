@@ -18,5 +18,5 @@ jobs:
       - name: Upload artifacts
         uses: shogo82148/actions-upload-release-asset@v1
         with:
-          upload_url: {{% raw %}}${{ github.event.release.upload_url }}{{% endraw %}} 
+          upload_url: {% raw %}${{ github.event.release.upload_url }}{% endraw %}
           asset_path: dist/*
