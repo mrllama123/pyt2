@@ -6,10 +6,6 @@ on:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        python-version:
-          - "3.12"
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -17,24 +13,20 @@ jobs:
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "{{ ci_python_version }}"
           enable-cache: true
       - name: Run test suite
         run: uv run poe test
 
   lints:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version:
-          - "3.12"  
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Install uv and set the python version
         uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "{{ ci_python_version }}"
           enable-cache: true
       - name: Run style lints
         run: uv run poe lint
