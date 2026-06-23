@@ -30,7 +30,8 @@ dev = [
     "pytest",
     "pytest-clarity",
     "pytest-cov",
-    "poethepoet"
+    "poethepoet",
+    "pre-commit>=4.6.0",
 ]
 
 {% if is_py_package %}[build-system]
@@ -64,6 +65,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 
+[tool.poe.tasks.pre-com-setup]
+	cmd = "pre-commit install"
+	help = "setup pre commit for repo"
 
 ###
 # Lint/Formatting tasks
